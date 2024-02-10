@@ -1,0 +1,25 @@
+{
+    "name": "Radish.VContainer",
+    "rootNamespace": "Radish.VContainer",
+    "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:8bdea64740185594d97902a78bd70061"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "PROJECT_HAS_VCONTAINER"
+    ],
+    "versionDefines": [
+        {
+            "name": "jp.hadashikick.vcontainer",
+            "expression": "1.13.1",
+            "define": "PROJECT_HAS_VCONTAINER"
+        }
+    ],
+    "noEngineReferences": false
+}

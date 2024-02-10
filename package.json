@@ -1,0 +1,28 @@
+{
+  "name": "com.radish.common-tools.vcontainer",
+  "displayName": "Radish Common Tools - VContainer",
+  "author": {
+    "name": "Audrey Castillo"
+  },
+  "version": "3.0.0",
+  "unity": "2022.3",
+  "description": "VContainer module for Radish Common Tools",
+  "keywords": [
+    "VContainer",
+    "Dependency Injection",
+    "DI"
+  ],
+  "license": "MIT",
+  "category": "Editor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Valax321/RadishTools.VContainer.git"
+  },
+  "dependencies": {
+    "com.radish.common-tools": "3.0.0",
+    "jp.hadashikick.vcontainer": "1.14.0"
+  },
+  "publishConfig": {
+    "registry": "https://package.openupm.com"
+  }
+}
