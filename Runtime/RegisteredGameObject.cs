@@ -17,8 +17,6 @@ namespace Radish.VContainer
     [Serializable]
     public sealed class RegisteredGameObject
     {
-        [SerializeField] private string m_Name = "New GameObject";
-        
         #if ODIN_INSPECTOR
         [AssetsOnly]
         #endif
@@ -48,7 +46,7 @@ namespace Radish.VContainer
                 if (m_DontDestroyOnLoad)
                     UnityEngine.Object.DontDestroyOnLoad(o);
 
-                o.name = $"[{m_Name}]";
+                o.name = $"[{m_Prefab.name}]";
 
                 foreach (var type in m_ComponentTypesToRegister)
                 {

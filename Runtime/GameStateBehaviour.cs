@@ -1,11 +1,17 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using VContainer;
 using VContainer.Unity;
 
 namespace Radish.VContainer
 {
+    [PublicAPI]
     public abstract class GameStateBehaviour : LifetimeScope
     {
+        [Header("Game State")]
+        [SerializeField] private List<RegisteredGameObject> m_Components = new();
+        
         public virtual bool persistent => false;
 
         private static GameObject s_ActiveStateObject;
@@ -34,6 +40,14 @@ namespace Radish.VContainer
             }
 
             return null;
+        }
+
+        protected override void Configure(IContainerBuilder builder)
+        {
+            base.Configure(builder);
+            
+            foreach (var cmp in m_Components)
+                cmp.Register(builder);
         }
 
         protected override void Awake()

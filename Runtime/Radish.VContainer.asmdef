@@ -3,7 +3,8 @@
     "rootNamespace": "Radish.VContainer",
     "references": [
         "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
-        "GUID:8bdea64740185594d97902a78bd70061"
+        "GUID:8bdea64740185594d97902a78bd70061",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -12,13 +13,19 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "PROJECT_HAS_VCONTAINER"
+        "PROJECT_HAS_VCONTAINER",
+        "PROJECT_HAS_UNITASK"
     ],
     "versionDefines": [
         {
             "name": "jp.hadashikick.vcontainer",
             "expression": "1.13.1",
             "define": "PROJECT_HAS_VCONTAINER"
+        },
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "2.5.4",
+            "define": "PROJECT_HAS_UNITASK"
         }
     ],
     "noEngineReferences": false
