@@ -34,10 +34,13 @@ namespace Radish.VContainer
 
             foreach (var data in m_GlobalData)
                 builder.RegisterInstance(data);
-            
-            // This is what RegisterEntryPoint does internally
-            EntryPointsBuilder.EnsureDispatcherRegistered(builder);
-            builder.Register(m_EntryPointType.type, Lifetime.Singleton).AsImplementedInterfaces();
+
+            if (m_EntryPointType.type != null)
+            {
+                // This is what RegisterEntryPoint does internally
+                EntryPointsBuilder.EnsureDispatcherRegistered(builder);
+                builder.Register(m_EntryPointType.type, Lifetime.Singleton).AsImplementedInterfaces();
+            }
         }
 
         protected virtual void Start()
