@@ -30,7 +30,7 @@ namespace Radish.VContainer
         {
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (m_CurrentState)
             {
