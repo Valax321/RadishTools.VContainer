@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+#if PROJECT_HAS_UNITASK
+using Cysharp.Threading.Tasks;
+#endif
 using JetBrains.Annotations;
 using UnityEngine;
 using VContainer;
@@ -15,6 +18,8 @@ namespace Radish.VContainer
         public virtual bool persistent => false;
 
         private static GameObject s_ActiveStateObject;
+
+        private List<Component> m_RegisteredComponents = new();
 
         [PublicAPI]
         public static void InjectIntoCurrentState(GameObject instance)
@@ -47,8 +52,28 @@ namespace Radish.VContainer
             base.Configure(builder);
             
             foreach (var cmp in m_Components)
-                cmp.Register(builder);
+                m_RegisteredComponents.AddRange(cmp.Register(builder));
         }
+
+#if PROJECT_HAS_UNITASK
+        internal async UniTask InitializeComponentsAsync()
+        {
+            foreach (var cmp in m_RegisteredComponents)
+            {
+                if (cmp is IRegisteredComponentAsync asyncCmp)
+                    await asyncCmp.OnCreateAsync();
+            }
+        }
+        
+        internal async UniTask DestroyComponentsAsync()
+        {
+            foreach (var cmp in m_RegisteredComponents)
+            {
+                if (cmp is IRegisteredComponentAsync asyncCmp)
+                    await asyncCmp.OnDestroyAsync();
+            }
+        }
+#endif
 
         protected override void Awake()
         {

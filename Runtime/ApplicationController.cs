@@ -33,7 +33,7 @@ namespace Radish.VContainer
                 cmp.Register(builder);
 
             foreach (var data in m_GlobalData)
-                builder.RegisterInstance(data);
+                builder.RegisterInstance(data).As(data.GetType());
 
             if (m_EntryPointType.type != null)
             {
@@ -43,10 +43,12 @@ namespace Radish.VContainer
             }
         }
 
-        protected virtual void Start()
+        protected override void Awake()
         {
             if (m_DontDestroyOnLoad)
                 DontDestroyOnLoad(gameObject);
+            
+            base.Awake();
         }
     }
 }

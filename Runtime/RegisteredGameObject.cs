@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Radish.Logging;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
+using ILogger = Radish.Logging.ILogger;
 
 namespace Radish.VContainer
 {
@@ -17,6 +19,8 @@ namespace Radish.VContainer
     [Serializable]
     public sealed class RegisteredGameObject
     {
+        private static readonly ILogger Logger = LogManager.GetLoggerForType(typeof(RegisteredGameObject));
+        
         #if ODIN_INSPECTOR
         [AssetsOnly]
         #endif
@@ -33,13 +37,15 @@ namespace Radish.VContainer
         /// <exception cref="ArgumentNullException">Thrown when <see cref="builder"/> is null.</exception>
         /// <exception cref="UnassignedReferenceException">Thrown when the prefab has not been assigned.</exception>
         [PublicAPI]
-        public void Register(IContainerBuilder builder)
+        public IEnumerable<Component> Register(IContainerBuilder builder)
         {
             if (builder == null)
                 throw new ArgumentNullException(nameof(builder));
 
             if (!m_Prefab)
                 throw new UnassignedReferenceException("Prefab not assigned");
+
+            var componentsRegistered = new List<Component>();
             
             builder.RegisterNewPrefabInstanceComponents(m_Prefab, builderFunc: (_, o) =>
             {
@@ -50,8 +56,15 @@ namespace Radish.VContainer
 
                 foreach (var type in m_ComponentTypesToRegister)
                 {
+                    if (!type.isValid)
+                    {
+                        Logger.Warn("Skipping registration type {0} was not valid", type);
+                        continue;
+                    }
+                    
                     if (o.TryGetComponent(type.type, out var cmp))
                     {
+                        componentsRegistered.Add(cmp);
                         builder.RegisterBuildCallback(container =>
                         {
                             container.Resolve(type.type);
@@ -61,6 +74,8 @@ namespace Radish.VContainer
                     }
                 }
             });
+
+            return componentsRegistered;
         }
     }
 }
