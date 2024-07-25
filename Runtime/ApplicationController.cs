@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using JetBrains.Annotations;
 using UnityEngine;
 using VContainer;
@@ -33,7 +35,9 @@ namespace Radish.VContainer
                 cmp.Register(builder);
 
             foreach (var data in m_GlobalData)
-                builder.RegisterInstance(data).As(data.GetType());
+            {
+                builder.RegisterInstance(data, data.GetType());
+            }
 
             if (m_EntryPointType.type != null)
             {
