@@ -3,6 +3,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using Radish.AssetManagement;
 using Radish.Logging;
 using UnityEngine;
 using ILogger = Radish.Logging.ILogger;
