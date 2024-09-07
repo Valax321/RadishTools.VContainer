@@ -4,7 +4,7 @@
   "author": {
     "name": "Audrey Castillo"
   },
-  "version": "3.1.0",
+  "version": "3.2.0",
   "unity": "2022.3",
   "description": "VContainer module for Radish Common Tools",
   "keywords": [
@@ -19,7 +19,7 @@
     "url": "https://github.com/Valax321/RadishTools.VContainer.git"
   },
   "dependencies": {
-    "com.radish.common-tools": "3.0.0",
+    "com.radish.common-tools": "4.0.0",
     "jp.hadashikick.vcontainer": "1.14.0"
   },
   "publishConfig": {
